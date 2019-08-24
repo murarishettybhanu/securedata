@@ -1,46 +1,68 @@
 @layout('layouts.app')
 
 @section('content')
-<!-- Page Header -->
-<header class="masthead" style="background-image: url('img/home-bg.jpg')">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="site-heading">
-          <h1>Clean Blog</h1>
-          <span class="subheading">A Blog Theme by Start Bootstrap</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
 
-<!-- Main Content -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-md-10 mx-auto">
-      @each(post in posts)
-        <div class="post-preview">
-          <a href="/post/{{ post._id }}">
-            <h2 class="post-title">
-              {{ post.title }}
-            </h2>
-            <h3 class="post-subtitle">{{ post.subtitle }}</h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">{{ post.author.username }}</a>
-            on {{ post.createdAt.toDateString() }}</p>
-        </div>
-        <hr>
-      @endeach
-      <!-- Pager -->
-      <div class="clearfix">
-        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-      </div>
-    </div>
-  </div>
-</div>
+<style>
+    #area {
+        width: 100%;
+        height: 200px;
+        background: slategray;
+        border: 1px solid black;
+    }
+</style>
+<div onmousemove="myFunction(event)" onclick="myFunction(event)" id="area"></div><br>
+please move your mouse/click on the above area to generate a random code <br><br>
+<input type="text" id="demo" style="width: 100%;" class="form-control"><br><br>
+<button id="create" class="btn btn-primary" disabled>Create key file</button><br><br>
+<a download="privatekey.txt" id="downloadlink" style="display: none">Download</a><br>
 
-<hr>
+<script>
+    var arr = [];
+    function myFunction(e) {
+        var x = e.clientX;
+        var y = e.clientY;
+        arr.push(x);
+        var res = arr.toString();
+        var result = res.replace(/,/g, "");
+        console.log(result);
+        if (result.length <= 100) {
+            document.getElementById("demo").value = result;
+        }
+        if (result.length > 95 && result.length < 100) {
+            alert("stop");
+            document.getElementById("create").disabled = false;
+        }
+    }
+
+
+    window.onload = function () {
+        var textFile = null,
+            makeTextFile = function (text) {
+                var data = new Blob([text], {
+                    type: 'text/plain'
+                });
+
+                // If we are replacing a previously generated file we need to
+                // manually revoke the object URL to avoid memory leaks.
+                if (textFile !== null) {
+                    window.URL.revokeObjectURL(textFile);
+                }
+
+                textFile = window.URL.createObjectURL(data);
+
+                return textFile;
+            };
+
+
+        var create = document.getElementById('create'),
+            textbox = document.getElementById('demo');
+
+        create.addEventListener('click', function () {
+            var link = document.getElementById('downloadlink');
+            link.href = makeTextFile(textbox.value);
+            link.style.display = 'block';
+        }, false);
+    };
+</script>
+
 @endsection

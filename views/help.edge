@@ -1,0 +1,32 @@
+@layout('layouts.app')
+
+@section('content')
+
+<h1>To generate private key</h1>
+<ol class="list-group">
+    <li class="list-group-item">-> Move your mouse in the provided empty space.</li>
+    <li class="list-group-item">-> Click on create key file.</li>
+    <li class="list-group-item">-> Then click on download.</li>
+    <li class="list-group-item">-> This downloaded file is used for encrypting and decrypting the data(it acts as a unique key for your data encryption/decryption).</li>
+</ol>
+<br>
+<br>
+<h1>Data encryption</h1>
+<ol class="list-group">
+    <li class="list-group-item">-> Enter the data to be encrypted.</li>
+    <li class="list-group-item">-> Upload the private key file.</li>
+    <li class="list-group-item">-> Click on convert.</li>
+    <li class="list-group-item">-> Encrypted data will be displayed.</li>
+    <li class="list-group-item">-> Copy the encrypted data and share it with people(NOTE*:Private key file should be same to decrypt the encrypted data).</li>
+</ol>
+<br><br>
+<h1>Data decryption</h1>
+<ol class="list-group">
+    <li class="list-group-item">-> Upload the private key file.</li>
+    <li class="list-group-item">-> Enter the encrypted data(which is to be decrypted).</li>
+    <li class="list-group-item">-> Click on convert.</li>
+
+
+</ol>
+
+@endsection

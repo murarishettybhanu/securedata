@@ -1,0 +1,77 @@
+@layout('layouts.app')
+
+@section('content')
+
+<p>Enter your data</p>
+<input type="text" id="val" class="form-control"><br><br>
+Upload Private key <br>
+<div class="custom-file">
+    <input type="file" class="custom-file-input" id="myFile">
+    <label class="custom-file-label" for="customFile">Choose file</label>
+</div><br><br>
+<input type="text" id="output" style="width: 100%;display: none;" class="form-control">
+<button onclick="convert()" class="btn btn-primary">convert</button><br><br>
+<form action="/posts/store" method="POST" encType="multipart/form-data">
+    <h2>Store data</h2>
+    Select your date <br>
+    <input type="date" name = "date"><br><br>
+    Your Encrypted data <br>
+<input type="text" id="res" name="data">
+@if(!auth)
+<button onclick="myFunction()" class="btn btn-primary">Copy text</button><br>
+<p>Login to save your data</p>
+@endif
+@if(auth)
+<button class="btn btn-primary">Save data</button>
+@endif
+</form>
+
+
+<script>
+
+    var input = document.getElementById("myFile");
+    var output = document.getElementById("output");
+
+    output
+    input.addEventListener("change", function () {
+        if (this.files && this.files[0]) {
+            var myFile = this.files[0];
+            var reader = new FileReader();
+
+            reader.addEventListener('load', function (e) {
+                output.value = e.target.result;
+            });
+
+            reader.readAsBinaryString(myFile);
+        }
+    });
+
+    function convert() {
+        var sum = 0;
+        var arr = [];
+        var str = document.getElementById("val").value;
+        var pks = document.getElementById("output").value;
+        var pk = pks.substring(15, 25);
+        for (i = 0; i < str.length; i++) {
+            var a = str.charAt(i);
+            var asci = a.charCodeAt(0);
+            console.log(asci);
+            sum = asci * pk;
+            console.log(sum);
+            arr.push(sum);
+        }
+        var arraystring = arr.toString();
+        var result = arraystring.replace(/,/g, "");
+        document.getElementById("res").value = result;
+        console.log(result.match(/.{1,12}/g));
+    }
+
+    function myFunction() {
+        var copyText = document.getElementById("res");
+        copyText.select();
+        document.execCommand("copy");
+        alert("Copied the text: " + copyText.value);
+    }
+</script>
+
+@endsection

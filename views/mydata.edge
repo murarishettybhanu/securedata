@@ -1,0 +1,13 @@
+@layout('layouts.app')
+
+@section('content')
+@each(post in posts)
+saved at {{post.date}} <br>
+<p>{{post.data}}</p>
+<a href="/deletedata/{{post._id}}">
+<button class="btn btn-danger">Delete</button>
+</a>
+<hr>
+@endeach
+
+@endsection
