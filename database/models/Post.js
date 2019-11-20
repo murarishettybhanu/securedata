@@ -2,7 +2,10 @@ const mongoose = require('mongoose')
 
 const PostSchema = new mongoose.Schema({
   id: String,
-  date: String,
+  date: {
+    type: Date,
+    default: new Date()
+  },
   data: String
 })
 

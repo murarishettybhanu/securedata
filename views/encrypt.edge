@@ -12,18 +12,18 @@ Upload Private key <br>
 <input type="text" id="output" style="width: 100%;display: none;" class="form-control">
 <button onclick="convert()" class="btn btn-primary">convert</button><br><br>
 <form action="/posts/store" method="POST" encType="multipart/form-data">
+    @if(auth)
     <h2>Store data</h2>
-    Select your date <br>
-    <input type="date" name = "date"><br><br>
+    @endif
     Your Encrypted data <br>
-<input type="text" id="res" name="data">
-@if(!auth)
-<button onclick="myFunction()" class="btn btn-primary">Copy text</button><br>
-<p>Login to save your data</p>
-@endif
-@if(auth)
-<button class="btn btn-primary">Save data</button>
-@endif
+    <input type="text" id="res" name="data">
+    <button onclick="myFunction()" class="btn btn-primary">Copy text</button>
+    @if(!auth)
+    <br><p>Login to save your data</p>
+    @endif
+    @if(auth)
+    <button class="btn btn-primary">Save data</button>
+    @endif
 </form>
 
 
