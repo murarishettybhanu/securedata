@@ -28,7 +28,7 @@ please move your mouse/click on the above area to generate a random code <br><br
         if (result.length <= 100) {
             document.getElementById("demo").value = result;
         }
-        if (result.length >= 99) {
+        if (result.length >= 99 && result.length === 100) {
             alert("stop");
             document.getElementById("create").disabled = false;
         }
